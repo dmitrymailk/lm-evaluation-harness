@@ -1,7 +1,0 @@
-group: babilongv2_qa2_base
-task:
-  - babilongv2_qa2_0k_base
-  - babilongv2_qa2_1k_base
-  - babilongv2_qa2_2k_base
-  - babilongv2_qa2_4k_base
-  - babilongv2_qa2_8k_base

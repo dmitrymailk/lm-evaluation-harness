@@ -4,5 +4,6 @@ validation_split: none
 generation_kwargs:
   do_sample: false
   temperature: 0.0
-  max_gen_toks: 16
+  # https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/scripts/run_model_on_babilong.py#L84
+  max_gen_toks: 20
   until: []

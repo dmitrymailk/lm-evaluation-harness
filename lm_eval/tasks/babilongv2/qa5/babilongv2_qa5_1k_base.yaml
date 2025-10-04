@@ -1,7 +1,7 @@
 
 include: ../_babilongv2_common
-task: babilongv2_qa1_1k_base
+task: babilongv2_qa5_1k_base
 metadata:
-  dataset_split_qa: qa1
+  dataset_split_qa: qa5
   name: 1k
   is_instruct: false

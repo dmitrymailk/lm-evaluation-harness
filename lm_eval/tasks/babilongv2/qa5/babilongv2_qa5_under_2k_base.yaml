@@ -1,0 +1,6 @@
+
+group: babilongv2_qa5_under_2k_base
+task:
+ - babilongv2_qa5_0k_base
+ - babilongv2_qa5_1k_base
+ - babilongv2_qa5_2k_base

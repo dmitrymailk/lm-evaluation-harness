@@ -1,9 +1,5 @@
 import logging
 from functools import partial
-from math import exp
-
-import datasets
-from packaging import version
 
 from lm_eval.api.instance import Instance
 from lm_eval.api.task import ConfigurableTask
@@ -11,6 +7,7 @@ from lm_eval.api.task import ConfigurableTask
 
 eval_logger = logging.getLogger(__name__)
 
+# https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/babilong/metrics.py#L1
 TASK_LABELS = {
     "qa1": ["bathroom", "bedroom", "garden", "hallway", "kitchen", "office"],
     "qa2": ["bathroom", "bedroom", "garden", "hallway", "kitchen", "office"],
@@ -61,6 +58,7 @@ CUSTOM_SYSTEM_PROMPTS = {
 }
 
 
+# https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/babilong/prompts.py#L16
 def get_formatted_input(
     context, question, examples, instruction, post_prompt, template=DEFAULT_TEMPLATE
 ):
@@ -79,6 +77,7 @@ def get_formatted_input(
     return formatted_input.strip()
 
 
+# https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/babilong/prompts.py#L27
 DEFAULT_PROMPTS = {
     "qa1": {
         "instruction": "I will give you context with the facts about positions of different persons hidden in some random text "
@@ -498,6 +497,7 @@ DEFAULT_PROMPTS = {
 }
 
 
+# https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/babilong/metrics.py#L24
 def preprocess_output(output):
     output = output.lower()
     # take only the first sentence from output
@@ -509,6 +509,7 @@ def preprocess_output(output):
     return output
 
 
+# https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/babilong/metrics.py#L35
 def compare_answers(target, output, question, task_labels):
     output = preprocess_output(output)
     target = target.lower()
@@ -553,7 +554,7 @@ def _babilong_agg(key, items):
         )
 
         preds.append(int(result))
-
+    # https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/babilong/collect_results.py#L58
     return sum(preds) / len(preds)
 
 
@@ -562,7 +563,7 @@ class BabilongV2(ConfigurableTask):
 
     def __init__(self, config=None):
         del config["class"]
-        print(config)
+        # print(config)
         name = config["metadata"]["name"]
         self.DATASET_NAME = name
         super().__init__(config=config)
@@ -592,7 +593,7 @@ class BabilongV2(ConfigurableTask):
         use_post_prompt = False
         use_chat_template = False
         system_prompt = ""
-        
+
         if is_instruct:
             use_instruction = True
             use_examples = True
@@ -600,6 +601,7 @@ class BabilongV2(ConfigurableTask):
             use_chat_template = True
             system_prompt = "You are a helpful assistant."
 
+        # https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/scripts/run_model_on_babilong.py#L101
         prompt_cfg = {
             "instruction": (
                 DEFAULT_PROMPTS[dataset_split_qa]["instruction"]
@@ -618,6 +620,7 @@ class BabilongV2(ConfigurableTask):
             "chat_template": use_chat_template,
             "system_prompt": system_prompt,
         }
+        # https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/scripts/run_model_on_babilong.py#L131
         input_text = get_formatted_input(
             doc["input"],
             doc["question"],
@@ -649,7 +652,8 @@ class BabilongV2(ConfigurableTask):
                     {
                         "do_sample": False,
                         "temperature": 0.0,
-                        "max_gen_toks": 16,
+                        # https://github.com/booydar/babilong/blob/f09a184b43316a751d5059e13de7c557b6daca86/scripts/run_model_on_babilong.py#L84
+                        "max_gen_toks": 20,
                         "until": [],
                     },
                 ),
