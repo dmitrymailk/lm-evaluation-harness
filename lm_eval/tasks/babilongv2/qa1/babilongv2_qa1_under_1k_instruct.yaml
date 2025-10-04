@@ -1,0 +1,5 @@
+
+group: babilongv2_qa1_under_1k_instruct
+task:
+ - babilongv2_qa1_0k_instruct
+ - babilongv2_qa1_1k_instruct

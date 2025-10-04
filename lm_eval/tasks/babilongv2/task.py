@@ -580,7 +580,7 @@ class BabilongV2(ConfigurableTask):
     def validation_docs(self):
         dataset_split_qa = self.config["metadata"]["dataset_split_qa"]
 
-        eval_logger.info(f"Loading babilong dataset: split={dataset_split_qa}")
+        # eval_logger.info(f"Loading babilong dataset: split={dataset_split_qa}")
         return self.dataset[dataset_split_qa]
 
     def doc_to_text(self, doc):

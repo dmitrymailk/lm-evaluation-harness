@@ -1,0 +1,7 @@
+
+include: ../_babilongv2_common
+task: babilongv2_qa1_1k_instruct
+metadata:
+  dataset_split_qa: qa1
+  name: 1k
+  is_instruct: true
