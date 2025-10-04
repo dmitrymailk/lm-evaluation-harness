@@ -1,0 +1,8 @@
+class: !function task.BabilongV2
+validation_split: none
+
+generation_kwargs:
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 16
+  until: []
